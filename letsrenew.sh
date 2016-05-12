@@ -11,8 +11,8 @@ python /config/letsencrypt/acme_tiny.py --account-key /config/letsencrypt/accoun
 iptables -D $CHAIN 1
 
 # Copying files to lighttpd directory
-cat /config/letsencrypt/signed.crt > /etc/lighttpd/server.pem
-cat /config/letsencrypt/domain.key >> /etc/lighttpd/server.pem
+cat /config/letsencrypt/signed.crt | tee /etc/lighttpd/server.pem
+cat /config/letsencrypt/domain.key | tee -a /etc/lighttpd/server.pem
 
 # Restarting lighttpd daemon
 ps -e | grep lighttpd | awk '{print $1;}' | xargs kill
